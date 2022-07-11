@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Static template</title>
+        <style>
+            picture {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                width: 100px;
+            }
+
+            img {
+                box-shadow: 0 0 3px;
+                border-radius: 50%;
+                width: 100px;
+            }
+
+            img.disabled {
+                opacity: 0.3
+            }
+
+        </style>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js"
+         crossorigin
+        ></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+         crossorigin
+        ></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"
+        ></script>
+
+
+    </head>
+
+    <body>
+        <h1>Women in tech</h1>
+        <div id="app">   
+        </div>
+        
+        <script type="text/babel">
+            const $app = document.getElementById("app");
+            const h = React.createElement;
+            
+            const Avatar = params => {
+                const src = `https://randomuser.me/api/portraits/women/${params.id}.jpg`;
+                // return h('img', {src});
+                return (
+                <picture>
+                <img onClick={(e) => {
+                    e.target.classList.toggle("disabled");
+                }} 
+                src={src}/>
+                <strong>{params.name}</strong>
+                </picture>);
+            };
+
+            ReactDOM.render(
+                //h("div", null, [h(Avatar, {id: 1}), h(Avatar, {id: 2})]), $app
+                <div>
+                    <Avatar id={10} name="Ana"/>
+                    <Avatar id={11} name="María"/>
+                </div>,
+                $app
+            );
+
+
+            // const Avatar = params => {
+            //     const src = `https://randomuser.me/api/portraits/women/${params.id}.jpg`
+            //     return `
+            //         <picture>
+            //             <img src="${src}">
+            //         <em>${params.name}</em>
+            //         </picture>                
+            //         `;
+            // };
+            // $app.innerHTML += Avatar({
+            //     id: 23,
+            //     name: "Andrea"
+            // });
+            // $app.innerHTML += Avatar({
+            //     id: 24,
+            //     name: "Julia"
+            // });
+
+            // $app.querySelectorAll("img").forEach(img => {
+            //     img.addEventListener("click", () => {
+            //         img.classList.toggle("disabled");
+            //     });
+            // });
+            
+
+        </script>
+        
+    </body>
+
+</html>
