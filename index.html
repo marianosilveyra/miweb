@@ -28,6 +28,12 @@
                 opacity: 0.3
             }
 
+            div {
+                color: blue;
+                font-family: sans-serif;
+                font-size: 24;
+            }
+
         </style>
 
         <script src="https://unpkg.com/react@18/umd/react.development.js"
@@ -43,7 +49,7 @@
     </head>
 
     <body>
-        <h1>Women in tech</h1>
+        <h1>Contador de botones</h1>
         <div id="app">   
         </div>
         
@@ -78,14 +84,27 @@
                     </picture>
                 );
             };
+            
+            // Los componentes siempre arrancan con mayúsculas
+            function Contador(){
+                let contador = useState(50);
+
+                return (
+                <React.Fragment>
+                    <span>{contador[0]}</span>
+                    <button onClick={() => {
+                        contador[1](contador[0] + 1)
+                    }}>Incrementar +</button>
+                    <button onClick={() => {
+                        contador[1](contador[0] - 1)
+                    }}>Decrementar -</button>
+                </React.Fragment>
+                );
+            }
 
             ReactDOM.render(
                 <div>
-                    <Avatar />
-                    <Avatar id={10} name="Ana" size="small"/>
-                    <Avatar id={11} name="María"/>
-                    <Avatar id={12} name="Luisa" size="large"/>
-                    <Avatar id={13}  size="large"/>
+                    <Contador />
                 </div>,
                 $app
             );
