@@ -10,10 +10,18 @@
                 width: 100px;
             }
 
+            picture.is-small {
+                width: 50px;
+            }
+
+            picture.is-large {
+                width: 200px;
+            }
+
             img {
                 box-shadow: 0 0 3px;
                 border-radius: 50%;
-                width: 100px;
+                width: 100%;
             }
 
             img.disabled {
@@ -43,55 +51,45 @@
             const $app = document.getElementById("app");
             const useState = React.useState;
             
-            const Avatar = props => {
+            const Avatar = ({id, name="NN", size}) => {
                 const [enabled, setEnabled] = useState(true);
-                const src = `https://randomuser.me/api/portraits/women/${props.id}.jpg`;
-                // return h('img', {src});
-                // Se usa className para determinar las clases
+
+                if (!id) return "Avatar incorrecto"
+
+                const src = `https://randomuser.me/api/portraits/women/${id}.jpg`;
+                let pictureClassName = ''
+                switch(size){
+                    case 'large': pictureClassName = 'is-large';
+                    break;
+                    case 'small': pictureClassName = 'is-small';
+                    break;
+                }
                 
-                const className = enabled ? '': 'disabled';
+                // Se usa className para determinar las clases
+                const imgClassName = enabled ? '': 'disabled';
                 return (
-                <picture>
-                <img onClick={() => setEnabled(!enabled)} className={className}
-                src={src}/>
-                <strong>{props.name}</strong>
-                </picture>);
+                    <picture className={pictureClassName}>
+                        <img 
+                        onClick={() => setEnabled(!enabled)}
+                        className={imgClassName}
+                        src={src}
+                        />
+                        <strong>{name}</strong>
+                    </picture>
+                );
             };
 
             ReactDOM.render(
-                //h("div", null, [h(Avatar, {id: 1}), h(Avatar, {id: 2})]), $app
                 <div>
-                    <Avatar id={10} name="Ana"/>
+                    <Avatar />
+                    <Avatar id={10} name="Ana" size="small"/>
                     <Avatar id={11} name="María"/>
+                    <Avatar id={12} name="Luisa" size="large"/>
+                    <Avatar id={13}  size="large"/>
                 </div>,
                 $app
             );
 
-
-            // const Avatar = params => {
-            //     const src = `https://randomuser.me/api/portraits/women/${params.id}.jpg`
-            //     return `
-            //         <picture>
-            //             <img src="${src}">
-            //         <em>${params.name}</em>
-            //         </picture>                
-            //         `;
-            // };
-            // $app.innerHTML += Avatar({
-            //     id: 23,
-            //     name: "Andrea"
-            // });
-            // $app.innerHTML += Avatar({
-            //     id: 24,
-            //     name: "Julia"
-            // });
-
-            // $app.querySelectorAll("img").forEach(img => {
-            //     img.addEventListener("click", () => {
-            //         img.classList.toggle("disabled");
-            //     });
-            // });
-            
 
         </script>
         
