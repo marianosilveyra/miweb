@@ -41,18 +41,20 @@
         
         <script type="text/babel">
             const $app = document.getElementById("app");
-            const h = React.createElement;
+            const useState = React.useState;
             
-            const Avatar = params => {
-                const src = `https://randomuser.me/api/portraits/women/${params.id}.jpg`;
+            const Avatar = props => {
+                const [enabled, setEnabled] = useState(true);
+                const src = `https://randomuser.me/api/portraits/women/${props.id}.jpg`;
                 // return h('img', {src});
+                // Se usa className para determinar las clases
+                
+                const className = enabled ? '': 'disabled';
                 return (
                 <picture>
-                <img onClick={(e) => {
-                    e.target.classList.toggle("disabled");
-                }} 
+                <img onClick={() => setEnabled(!enabled)} className={className}
                 src={src}/>
-                <strong>{params.name}</strong>
+                <strong>{props.name}</strong>
                 </picture>);
             };
 
